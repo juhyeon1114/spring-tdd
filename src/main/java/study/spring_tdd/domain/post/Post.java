@@ -1,4 +1,4 @@
-package study.spring_tdd.domain.post.model;
+package study.spring_tdd.domain.post;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import study.spring_tdd.domain.post.model.Post;
+import study.spring_tdd.domain.post.Post;
 import study.spring_tdd.enums.PostType;
 
 @Slf4j
@@ -31,7 +31,7 @@ class SampleParameterizedTest {
     }
 
     @ParameterizedTest
-    @MethodSource("study.spring_tdd.domain.post.mock.DummyPosts#getDummyPosts")
+    @MethodSource("study.spring_tdd.domain.post.DummyPosts#getDummyPosts")
     void Method_테스트(Post post) {
         log.info("{} 테스트 코드", post.getId());
     }

@@ -1,8 +1,7 @@
-package study.spring_tdd.domain.post.mock;
+package study.spring_tdd.domain.post;
 
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
-import study.spring_tdd.domain.post.model.Post;
 
 public class DummyPosts {
 
