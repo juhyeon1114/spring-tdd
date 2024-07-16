@@ -1,19 +1,25 @@
 package study.spring_tdd.domain.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ExtendWith(MockitoExtension.class)
 class PersonServiceTest {
 
+    private static final Logger log = LoggerFactory.getLogger(PersonServiceTest.class);
     final Person dummyPerson = new Person(999L, "DummyPerson", "person@dummy.com");
 
     @InjectMocks
@@ -24,6 +30,12 @@ class PersonServiceTest {
 
     @Spy
     PersonSpyService personSpyService;
+
+    @Mock
+    FakePersonService fakePersonService;
+
+    @Captor
+    ArgumentCaptor<Person> personCaptor;
 
     @Test
     void Mock_테스트() {
@@ -48,6 +60,17 @@ class PersonServiceTest {
         Person mustNotBeSpy = personSpyService.getOne(2L);
         assertEquals(3L, mustNotBeSpy.getId());
         assertEquals("Kim_getOne", mustNotBeSpy.getName());
+    }
+
+    @Test
+    void Captor_테스트() {
+        fakePersonService.create(dummyPerson);
+
+        verify(fakePersonService).create(personCaptor.capture());
+        Person person = personCaptor.getValue();
+
+        log.info(String.valueOf(person.getId()));
+
     }
 
 }
