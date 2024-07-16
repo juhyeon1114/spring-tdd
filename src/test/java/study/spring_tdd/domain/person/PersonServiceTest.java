@@ -29,9 +29,8 @@ class PersonServiceTest {
     void Mock_테스트() {
         when(mockPersonJpaRepository.findById(1L)).thenReturn(Optional.of(dummyPerson));
 
-        Person person = personService.getOne(1L);
-        
         // Mock 검증
+        Person person = personService.getOne(1L);
         assertEquals(999L, person.getId());
         assertEquals("DummyPerson", person.getName());
     }
@@ -40,14 +39,13 @@ class PersonServiceTest {
     void Spy_테스트() {
         when(personSpyService.getOne(1L)).thenReturn(dummyPerson);
 
-        Person mustBeSpy = personSpyService.getOne(1L);
-        Person mustNotBeSpy = personSpyService.getOne(2L);
-
         // Spy 검증
+        Person mustBeSpy = personSpyService.getOne(1L);
         assertEquals(999L, mustBeSpy.getId());
         assertEquals("DummyPerson", mustBeSpy.getName());
 
         // Spy 검증
+        Person mustNotBeSpy = personSpyService.getOne(2L);
         assertEquals(3L, mustNotBeSpy.getId());
         assertEquals("Kim_getOne", mustNotBeSpy.getName());
     }
