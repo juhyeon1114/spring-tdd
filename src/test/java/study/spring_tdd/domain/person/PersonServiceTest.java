@@ -1,9 +1,11 @@
 package study.spring_tdd.domain.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -34,7 +36,7 @@ class PersonServiceTest {
     FakePersonService fakePersonService;
 
     @Captor
-    ArgumentCaptor<Person> personCaptor;
+    ArgumentCaptor<Long> longCaptor;
 
     @Test
     void Mock_테스트() {
@@ -62,14 +64,23 @@ class PersonServiceTest {
     }
 
     @Test
+    void Verify_테스트() throws Exception {
+        fakePersonService.delete(999L);
+
+        verify(fakePersonService).delete(999L);
+        verify(fakePersonService).delete(anyLong());
+    }
+
+    @Test
     void Captor_테스트() {
-        fakePersonService.create(dummyPerson);
+        Long randomId = List.of(1L, 2L, 3L, 4L).get((int) (Math.random() * 4));
+        fakePersonService.delete(randomId);
 
-        verify(fakePersonService).create(personCaptor.capture());
-        Person person = personCaptor.getValue();
+        verify(fakePersonService).delete(longCaptor.capture());
 
-        log.info(String.valueOf(person.getId()));
+        Long selectedId = longCaptor.getValue();
 
+        assertEquals(randomId, selectedId);
     }
 
 }
