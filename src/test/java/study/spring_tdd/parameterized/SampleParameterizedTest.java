@@ -1,4 +1,4 @@
-package study.spring_tdd;
+package study.spring_tdd.parameterized;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -6,8 +6,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import study.spring_tdd.domain.post.Post;
-import study.spring_tdd.enums.PostType;
+import study.spring_tdd.domain.article.Article;
+import study.spring_tdd.domain.article.ArticleType;
 
 @Slf4j
 class SampleParameterizedTest {
@@ -19,9 +19,9 @@ class SampleParameterizedTest {
     }
 
     @ParameterizedTest(name = "{index}번째 테스트 {0}")
-    @EnumSource(PostType.class)
-    void Enum_테스트(PostType postType) {
-        log.info("{} 테스트 코드", postType);
+    @EnumSource(ArticleType.class)
+    void Enum_테스트(ArticleType articleType) {
+        log.info("{} 테스트 코드", articleType);
     }
 
     @ParameterizedTest
@@ -31,9 +31,9 @@ class SampleParameterizedTest {
     }
 
     @ParameterizedTest
-    @MethodSource("study.spring_tdd.domain.post.DummyPosts#getDummyPosts")
-    void Method_테스트(Post post) {
-        log.info("{} 테스트 코드", post.getId());
+    @MethodSource("study.spring_tdd.domain.article.DummyArticles#getDummyArticles")
+    void Method_테스트(Article article) {
+        log.info("{} 테스트 코드", article.getId());
     }
 
     // @NullSource
