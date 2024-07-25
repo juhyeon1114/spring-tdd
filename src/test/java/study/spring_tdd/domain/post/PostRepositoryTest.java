@@ -9,10 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import study.extensions.MysqlContainerExtension;
+import study.extensions.RabbitContainerExtension;
+import study.extensions.RedisContainerExtension;
 
-@Testcontainers
+//@Testcontainers
+//@ExtendWith(SpringExtension.class)
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
+@ExtendWith({MysqlContainerExtension.class, RedisContainerExtension.class, RabbitContainerExtension.class})
 class PostRepositoryTest {
 
     @Autowired
